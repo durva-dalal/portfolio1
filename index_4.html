@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Durva Dalal — Marketing & Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F5EDD6;
+  --cream2: #EDE4C6;
+  --ink: #0C0800;
+  --pink: #E8195A;
+  --yellow: #F0DC00;
+  --green: #00B84C;
+  --warm-white: #FAF6EC;
+  --muted: rgba(12,8,0,0.5);
+  --gap: 3px;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--cream); color:var(--ink); font-family:'DM Sans',sans-serif; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+img { display:block; max-width:100%; }
+a { color:inherit; text-decoration:none; }
+
+/* CURSOR */
+@media (hover:hover) and (pointer:fine) {
+  body { cursor:none; }
+  .cur { position:fixed; z-index:9999; pointer-events:none; top:0; left:0; width:12px; height:12px; border-radius:50%; background:var(--pink); transform:translate(-50%,-50%); transition:width .2s, height .2s; mix-blend-mode:multiply; }
+  .cur.e { width:36px; height:36px; opacity:.25; }
+  .cur.p { width:6px; height:6px; background:var(--yellow); }
+  a, button { cursor:none; }
+}
+
+/* NEWSPAPER NAV / MASTHEAD */
+.masthead {
+  background:var(--ink);
+  color:var(--cream);
+  padding:0;
+  position:sticky; top:0; z-index:500;
+}
+.masthead-top {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 40px;
+  border-bottom:1px solid rgba(245,237,214,.15);
+}
+.masthead-logo {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(28px,4vw,48px);
+  letter-spacing:.05em;
+  color:var(--cream);
+  line-height:1;
+}
+.masthead-logo span { color:var(--pink); }
+.masthead-links {
+  display:flex; gap:24px; list-style:none;
+}
+.masthead-links a {
+  font-family:'Space Mono',monospace;
+  font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(245,237,214,.5); transition:color .2s;
+}
+.masthead-links a:hover { color:var(--yellow); }
+.masthead-right { display:flex; align-items:center; gap:16px; }
+.masthead-btn {
+  background:none; border:none; padding:0;
+  display:flex; flex-direction:column; gap:4px;
+}
+.masthead-btn span { display:block; width:20px; height:1.5px; background:var(--cream); transition:all .3s; }
+.masthead-date {
+  font-family:'Space Mono',monospace; font-size:9px;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(245,237,214,.35);
+}
+
+/* FULL MENU */
+.fmenu { display:none; position:fixed; inset:0; z-index:490; background:var(--ink); flex-direction:column; justify-content:center; padding:60px 10vw; }
+.fmenu.on { display:flex; }
+.fmenu-links { display:flex; flex-direction:column; gap:2px; margin-bottom:48px; }
+.fmenu-links a {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,8vw,96px);
+  line-height:1.05; color:var(--cream); opacity:.15;
+  transition:opacity .3s, color .3s, transform .3s;
+  transform:translateX(-20px);
+  letter-spacing:.04em;
+}
+.fmenu-links a:hover { opacity:1; color:var(--yellow); transform:translateX(0); }
+.fmenu-bottom {
+  display:flex; flex-wrap:wrap; gap:12px;
+  border-top:1px solid rgba(245,237,214,.1); padding-top:32px;
+}
+.fmenu-pill {
+  display:inline-flex; align-items:center;
+  font-family:'Space Mono',monospace; font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase;
+  padding:12px 24px; transition:all .25s; white-space:nowrap;
+}
+.fmenu-pill.p { background:var(--pink); color:#fff; font-weight:700; }
+.fmenu-pill.p:hover { background:#ff4d7a; }
+.fmenu-pill.y { background:var(--yellow); color:var(--ink); font-weight:700; }
+.fmenu-pill.y:hover { background:#ffe133; }
+.fmenu-pill.g { border:1px solid rgba(245,237,214,.2); color:var(--cream); }
+.fmenu-pill.g:hover { border-color:var(--cream); }
+.fmenu-close { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:rgba(245,237,214,.18); margin-top:16px; }
+
+/* NEWSPAPER HERO */
+.hero {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:auto;
+  border-bottom:4px solid var(--ink);
+}
+.hero-headline {
+  grid-column:1/3;
+  padding:48px 40px 40px;
+  border-right:2px solid var(--ink);
+  position:relative;
+}
+.hero-kicker {
+  font-family:'Space Mono',monospace; font-size:10px;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--pink); margin-bottom:16px; display:block;
+}
+.hero-name {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(80px,12vw,180px);
+  line-height:.88; letter-spacing:.02em;
+  color:var(--ink);
+}
+.hero-name .accent { color:var(--pink); display:block; }
+.hero-subhead {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(18px,2vw,26px); font-style:italic;
+  color:var(--muted); margin-top:20px; line-height:1.5;
+  max-width:480px;
+}
+.hero-subhead strong { color:var(--ink); font-style:normal; font-weight:600; }
+.hero-ctas { display:flex; gap:10px; flex-wrap:wrap; margin-top:32px; }
+.hero-rule {
+  position:absolute; bottom:0; left:40px; right:40px;
+  height:3px;
+  background:repeating-linear-gradient(90deg, var(--pink) 0, var(--pink) 8px, var(--yellow) 8px, var(--yellow) 16px, var(--green) 16px, var(--green) 24px, transparent 24px, transparent 32px);
+}
+.hero-photo {
+  grid-column:3/4;
+  grid-row:1/3;
+  position:relative; overflow:hidden;
+  min-height:480px;
+  background:var(--ink);
+}
+.hero-photo img {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center top;
+  filter:grayscale(20%) contrast(1.1);
+  mix-blend-mode:luminosity;
+}
+.hero-photo-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to bottom, transparent 60%, rgba(245,237,214,.3) 100%);
+}
+.hero-photo-fallback {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, #3d0818 0%, #1a0800 100%);
+  z-index:0;
+}
+.hero-photo img { position:relative; z-index:1; }
+.hero-photo-overlay { z-index:2; }
+.hero-photo-badge {
+  position:absolute; bottom:20px; left:20px; z-index:3;
+  background:var(--pink); color:#fff;
+  font-family:'Space Mono',monospace; font-size:8px;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:8px 14px; line-height:1.5;
+}
+.hero-stats {
+  grid-column:1/3;
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border-top:2px solid var(--ink);
+  border-right:2px solid var(--ink);
+}
+.hs { padding:24px 28px; border-right:1px solid rgba(12,8,0,.15); }
+.hs:last-child { border-right:none; }
+.hs-n { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,4vw,52px); line-height:1; }
+.hs:nth-child(1) .hs-n { color:var(--pink); }
+.hs:nth-child(2) .hs-n { color:var(--green); }
+.hs:nth-child(3) .hs-n { color:var(--ink); }
+.hs:nth-child(4) .hs-n { color:var(--pink); }
+.hs-l { font-size:12px; color:var(--muted); margin-top:3px; line-height:1.4; }
+
+/* BTN */
+.btn { display:inline-flex; align-items:center; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; padding:12px 24px; transition:all .25s; white-space:nowrap; }
+.btn-p { background:var(--pink); color:#fff; font-weight:700; }
+.btn-p:hover { background:#ff4d7a; transform:translate(-2px,-2px); box-shadow:3px 3px 0 var(--ink); }
+.btn-y { background:var(--yellow); color:var(--ink); font-weight:700; }
+.btn-y:hover { background:#ffe133; transform:translate(-2px,-2px); box-shadow:3px 3px 0 var(--ink); }
+.btn-g { background:var(--green); color:var(--ink); font-weight:700; }
+.btn-g:hover { background:#00e95e; transform:translate(-2px,-2px); box-shadow:3px 3px 0 var(--ink); }
+.btn-ink { background:var(--ink); color:var(--cream); }
+.btn-ink:hover { background:#2a1a00; }
+
+/* SECTION STRIP */
+.section-strip {
+  background:var(--ink); color:var(--cream);
+  display:flex; align-items:center; gap:0;
+  overflow:hidden;
+}
+.ss-label {
+  font-family:'Bebas Neue',sans-serif; font-size:20px;
+  letter-spacing:.08em; padding:10px 24px;
+  white-space:nowrap; flex-shrink:0;
+  border-right:1px solid rgba(245,237,214,.15);
+}
+.ss-ticker { flex:1; overflow:hidden; padding:0 24px; }
+.ss-ticker-t { display:inline-flex; animation:tick 28s linear infinite; white-space:nowrap; }
+.ss-ti { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:rgba(245,237,214,.5); padding:0 24px; line-height:2.4; }
+.ss-sep { color:var(--pink); }
+
+/* THREE ACTS — NEWSPAPER COLUMNS */
+.acts-section { border-bottom:3px solid var(--ink); }
+.acts-header {
+  padding:24px 40px 20px;
+  border-bottom:2px solid var(--ink);
+  display:flex; align-items:baseline; gap:20px;
+}
+.acts-header-label { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:.12em; color:var(--muted); }
+.acts-header-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,4vw,44px); line-height:1; letter-spacing:.04em; }
+.acts-grid { display:grid; grid-template-columns:1fr 1fr 1fr; }
+.act {
+  padding:32px 36px 40px;
+  border-right:2px solid var(--ink);
+  display:flex; flex-direction:column;
+  text-decoration:none; color:var(--ink);
+  transition:background .2s;
+  position:relative;
+  overflow:hidden;
+}
+.act:last-child { border-right:none; }
+.act:hover { background:var(--cream2); }
+
+/* ACT ILLUSTRATED BG */
+.act-illus {
+  position:absolute; inset:0; pointer-events:none;
+  overflow:hidden; opacity:.07;
+}
+.act-1 .act-illus svg { position:absolute; right:-10%; top:50%; transform:translateY(-50%); width:80%; }
+.act-2 .act-illus svg { position:absolute; right:-5%; top:50%; transform:translateY(-50%); width:70%; }
+.act-3 .act-illus svg { position:absolute; right:-5%; top:50%; transform:translateY(-50%); width:70%; }
+
+.act-number { font-family:'Bebas Neue',sans-serif; font-size:80px; line-height:1; opacity:.07; margin-bottom:-16px; }
+.act-1 .act-number { color:var(--pink); }
+.act-2 .act-number { color:var(--green); }
+.act-3 .act-number { color:var(--yellow); }
+.act-tag {
+  font-family:'Space Mono',monospace; font-size:8px;
+  letter-spacing:.15em; text-transform:uppercase;
+  padding:4px 10px; display:inline-block; margin-bottom:14px;
+  position:relative; z-index:1;
+}
+.act-1 .act-tag { background:var(--pink); color:#fff; }
+.act-2 .act-tag { background:var(--green); color:var(--ink); }
+.act-3 .act-tag { background:var(--yellow); color:var(--ink); }
+.act-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,4vw,60px);
+  line-height:1; letter-spacing:.04em; margin-bottom:14px;
+  position:relative; z-index:1;
+}
+.act-desc {
+  font-size:14px; line-height:1.75; color:var(--muted);
+  margin-bottom:24px; flex:1; position:relative; z-index:1;
+}
+.act-cta {
+  font-family:'Space Mono',monospace; font-size:9px;
+  letter-spacing:.14em; text-transform:uppercase;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 18px; border:2px solid var(--ink);
+  transition:all .25s; position:relative; z-index:1;
+  align-self:flex-start;
+}
+.act:hover .act-cta { background:var(--ink); color:var(--cream); }
+.act-1:hover .act-cta { background:var(--pink); border-color:var(--pink); color:#fff; }
+.act-2:hover .act-cta { background:var(--green); border-color:var(--green); color:var(--ink); }
+.act-3:hover .act-cta { background:var(--yellow); border-color:var(--yellow); color:var(--ink); }
+
+/* CURRENTLY — NEWSPAPER FEATURE */
+.currently { display:grid; grid-template-columns:1fr 2fr; border-bottom:3px solid var(--ink); }
+.cur-lhs { padding:48px 40px; border-right:2px solid var(--ink); background:var(--ink); color:var(--cream); position:relative; overflow:hidden; }
+.cur-lhs-bg { position:absolute; inset:0; pointer-events:none; opacity:.04; }
+.cur-lhs-bg svg { width:100%; height:100%; }
+.cur-lhs-content { position:relative; z-index:1; }
+.cur-section-label { font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:.16em; color:var(--yellow); display:block; margin-bottom:12px; }
+.cur-org { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,72px); line-height:.9; letter-spacing:.03em; margin-bottom:8px; color:var(--cream); }
+.cur-role { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--yellow); margin-bottom:24px; }
+.cur-blurb { font-size:14px; line-height:1.8; color:rgba(245,237,214,.55); margin-bottom:32px; }
+.cur-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; }
+.cst { padding:20px 18px; }
+.cst:nth-child(1) { background:var(--pink); }
+.cst:nth-child(2) { background:var(--yellow); }
+.cst:nth-child(3) { background:var(--green); }
+.cst:nth-child(4) { background:rgba(245,237,214,.07); border:1px solid rgba(245,237,214,.1); }
+.cst-n { font-family:'Bebas Neue',sans-serif; font-size:40px; line-height:1; color:var(--ink); }
+.cst:nth-child(4) .cst-n { color:var(--yellow); }
+.cst-l { font-size:11px; color:rgba(12,8,0,.55); margin-top:2px; }
+.cst:nth-child(4) .cst-l { color:rgba(245,237,214,.5); }
+.cur-rhs { padding:48px 40px; }
+.cur-rhs-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3vw,40px); letter-spacing:.04em; margin-bottom:28px; }
+.ach-list { list-style:none; display:flex; flex-direction:column; gap:1px; }
+.ach { padding:24px 0; border-bottom:1px solid rgba(12,8,0,.1); display:flex; gap:16px; align-items:flex-start; }
+.ach:last-child { border-bottom:none; }
+.ach-ico { font-size:18px; flex-shrink:0; width:24px; margin-top:2px; }
+.ach-title { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; margin-bottom:5px; }
+.ach-body { font-size:13px; line-height:1.7; color:var(--muted); }
+.ach-m { font-family:'Space Mono',monospace; font-size:9px; color:var(--pink); letter-spacing:.1em; margin-top:6px; display:block; font-weight:700; }
+
+/* UNI SECTION */
+.uni-section { border-bottom:3px solid var(--ink); }
+.uni-header { padding:24px 40px; border-bottom:2px solid var(--ink); display:flex; align-items:center; justify-content:space-between; }
+.uni-header h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,4vw,44px); letter-spacing:.04em; }
+.uni-header-sub { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.uni-grid { display:grid; grid-template-columns:1fr 1fr; }
+.uni-c {
+  padding:40px; border-right:2px solid var(--ink);
+  text-decoration:none; color:var(--ink);
+  display:flex; flex-direction:column;
+  transition:background .2s; position:relative; overflow:hidden;
+}
+.uni-c:last-child { border-right:none; }
+.uni-c:hover { background:var(--cream2); }
+.uni-c-accent { height:6px; margin-bottom:24px; }
+.uni-c:nth-child(1) .uni-c-accent { background:var(--pink); }
+.uni-c:nth-child(2) .uni-c-accent { background:var(--green); }
+.uni-tag { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; display:block; }
+.uni-h { font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,3vw,44px); letter-spacing:.04em; margin-bottom:14px; line-height:1; }
+.uni-p { font-size:14px; line-height:1.75; color:var(--muted); margin-bottom:28px; flex:1; }
+.uni-btns { display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; }
+.ub { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; padding:10px 18px; transition:all .2s; display:inline-block; border:2px solid var(--ink); }
+.ub:hover { background:var(--ink); color:var(--cream); }
+.ub.f { background:var(--ink); color:var(--cream); }
+.ub.f:hover { background:var(--pink); border-color:var(--pink); }
+
+/* ABOUT */
+.about-section { background:var(--ink); color:var(--cream); border-bottom:3px solid var(--cream); }
+.about-header { padding:24px 40px; border-bottom:1px solid rgba(245,237,214,.12); display:flex; gap:20px; align-items:baseline; }
+.about-header h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,4vw,44px); letter-spacing:.04em; color:var(--cream); }
+.about-label { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:rgba(245,237,214,.3); }
+.about-grid { display:grid; grid-template-columns:1fr 1fr; }
+.about-lhs { padding:48px 40px; border-right:1px solid rgba(245,237,214,.1); }
+.aq { font-family:'Cormorant Garamond',serif; font-size:clamp(22px,2.2vw,32px); font-style:italic; font-weight:600; color:var(--pink); line-height:1.3; margin-bottom:28px; display:block; }
+.ap { font-size:15px; line-height:1.85; color:rgba(245,237,214,.65); margin-bottom:18px; }
+.ap strong { color:var(--cream); font-weight:600; }
+.about-rhs { padding:48px 40px; }
+.about-stats { display:grid; grid-template-columns:1fr 1fr; gap:var(--gap); margin-bottom:32px; }
+.as { padding:24px 20px; }
+.as:nth-child(1) { background:var(--pink); color:#fff; }
+.as:nth-child(2) { background:var(--yellow); color:var(--ink); }
+.as:nth-child(3) { background:var(--green); color:var(--ink); }
+.as:nth-child(4) { background:rgba(245,237,214,.07); border:1px solid rgba(245,237,214,.1); }
+.as-n { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; }
+.as:nth-child(4) .as-n { color:var(--yellow); }
+.as-l { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:rgba(12,8,0,.5); margin-top:4px; }
+.as:nth-child(4) .as-l { color:rgba(245,237,214,.4); }
+.as:nth-child(1) .as-l, .as:nth-child(2) .as-l, .as:nth-child(3) .as-l { color:rgba(12,8,0,.55); }
+.skr { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(245,237,214,.1); }
+.skn { font-size:13px; color:rgba(245,237,214,.65); }
+.skb { width:120px; height:2px; background:rgba(245,237,214,.1); position:relative; overflow:hidden; }
+.skf { position:absolute; inset-block:0; left:0; background:var(--pink); width:0; transition:width 1.1s ease; }
+.skw.go .skf { width:var(--w); }
+.out-row { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--gap); margin-top:28px; }
+.ot { background:rgba(245,237,214,.05); padding:18px; transition:background .3s; border-top:2px solid transparent; }
+.ot:nth-child(1) { border-top-color:var(--pink); }
+.ot:nth-child(2) { border-top-color:var(--yellow); }
+.ot:nth-child(3) { border-top-color:var(--green); }
+.ot:nth-child(4) { border-top-color:var(--pink); }
+.ot:hover { background:rgba(245,237,214,.09); }
+.oe { font-size:22px; margin-bottom:8px; }
+.on2 { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:600; color:var(--cream); margin-bottom:4px; }
+.ob { font-size:12px; line-height:1.6; color:rgba(245,237,214,.4); }
+.ol { display:inline-block; margin-top:8px; font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:var(--pink); border-bottom:1px solid var(--pink); padding-bottom:1px; }
+
+/* CONTACT */
+.contact-section { padding:80px 40px; background:var(--yellow); border-bottom:3px solid var(--ink); }
+.contact-inner { max-width:900px; }
+.contact-pre { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:rgba(12,8,0,.5); margin-bottom:16px; display:block; }
+.contact-hd { font-family:'Bebas Neue',sans-serif; font-size:clamp(56px,8vw,112px); line-height:.9; letter-spacing:.03em; margin-bottom:32px; color:var(--ink); }
+.contact-hd span { color:var(--pink); }
+.contact-email { display:inline-block; font-family:'Bebas Neue',sans-serif; font-size:clamp(24px,3vw,40px); color:var(--ink); border-bottom:3px solid var(--ink); padding-bottom:2px; transition:all .2s; margin-bottom:32px; letter-spacing:.03em; }
+.contact-email:hover { color:var(--pink); border-color:var(--pink); }
+.contact-btns { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+
+footer { background:var(--ink); padding:20px 40px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.ft { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.1em; color:rgba(245,237,214,.2); text-transform:uppercase; }
+
+@keyframes tick { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+@keyframes spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+.r { opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+.r.v { opacity:1; transform:translateY(0); }
+
+/* MOBILE */
+@media (max-width:900px) {
+  .masthead-links { display:none; }
+  .masthead-top { padding:10px 20px; }
+  .hero { grid-template-columns:1fr; }
+  .hero-headline { grid-column:1; padding:100px 24px 32px; }
+  .hero-photo { grid-column:1; grid-row:1; position:absolute; inset:0; z-index:0; opacity:.25; min-height:unset; }
+  .hero-headline { position:relative; z-index:1; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(to top, var(--cream) 50%, rgba(245,237,214,.6) 100%); }
+  .hero-stats { grid-column:1; grid-template-columns:1fr 1fr; border-right:none; }
+  .acts-header, .currently, .uni-header, .uni-grid, .about-grid { display:block; }
+  .acts-grid { grid-template-columns:1fr; }
+  .act { border-right:none; border-bottom:2px solid var(--ink); }
+  .cur-lhs { border-right:none; border-bottom:2px solid var(--cream); }
+  .cur-stats { grid-template-columns:1fr 1fr; }
+  .uni-c { border-right:none; border-bottom:2px solid var(--ink); }
+  .about-lhs, .about-rhs { padding:40px 24px; }
+  .about-lhs { border-right:none; border-bottom:1px solid rgba(245,237,214,.1); }
+  .out-row { grid-template-columns:1fr 1fr; }
+  .contact-section { padding:60px 24px; }
+  .acts-header, .uni-header { padding:20px 24px; }
+  .cur-lhs, .cur-rhs { padding:40px 24px; }
+  footer { padding:16px 20px; justify-content:center; text-align:center; }
+  .fmenu { padding:60px 24px; }
+  .fmenu-links a { font-size:clamp(36px,9vw,56px); }
+}
+@media (max-width:480px) {
+  .hero-name { font-size:clamp(64px,16vw,96px); }
+  .hero-stats { grid-template-columns:1fr 1fr; }
+  .about-stats { grid-template-columns:1fr 1fr; }
+  .out-row { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur" aria-hidden="true"></div>
+
+<!-- MASTHEAD -->
+<header class="masthead" id="masthead">
+  <div class="masthead-top">
+    <a href="index.html" class="masthead-logo">Durva <span>Dalal.</span></a>
+    <ul class="masthead-links">
+      <li><a href="onscreen.html">On Screen</a></li>
+      <li><a href="onground.html">On the Ground</a></li>
+      <li><a href="onpage.html">On the Page</a></li>
+      <li><a href="#currently">Currently</a></li>
+      <li><a href="university.html">University</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="masthead-right">
+      <span class="masthead-date">Manchester, UK · 2026</span>
+      <button class="masthead-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- FULL MENU -->
+<div class="fmenu" id="fmenu" aria-hidden="true">
+  <div class="fmenu-links">
+    <a href="index.html">Home</a>
+    <a href="onscreen.html">On Screen</a>
+    <a href="onground.html">On the Ground</a>
+    <a href="onpage.html">On the Page</a>
+    <a href="university.html">University</a>
+    <a href="#currently">Currently</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="fmenu-bottom">
+    <a href="https://calendly.com/durvadalaluk/calls" target="_blank" rel="noopener" class="fmenu-pill p">Book a Call</a>
+    <a href="https://www.linkedin.com/in/durva-d-2850591bb/" target="_blank" rel="noopener" class="fmenu-pill y">LinkedIn</a>
+    <a href="mailto:durvadalaluk@gmail.com" class="fmenu-pill g">durvadalaluk@gmail.com</a>
+  </div>
+  <p class="fmenu-close">Click anywhere outside to close · ESC to dismiss</p>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-headline">
+    <span class="hero-kicker">Marketing · Strategy · Storytelling · Manchester UK</span>
+    <h1 class="hero-name">Durva<span class="accent">Dalal.</span></h1>
+    <p class="hero-subhead"><strong>Writer. Strategist. The person who makes things happen.</strong> Television commercials for national banks and global NGOs. Email that moved real numbers. Marketing for 30,000+ students.</p>
+    <div class="hero-ctas">
+      <a href="onscreen.html" class="btn btn-p">On Screen</a>
+      <a href="onground.html" class="btn btn-y">On the Ground</a>
+      <a href="onpage.html" class="btn btn-g">On the Page</a>
+    </div>
+    <div class="hero-rule"></div>
+  </div>
+  <div class="hero-photo">
+    <div class="hero-photo-fallback"></div>
+    <img src="durva.jpg" alt="Durva Dalal" loading="eager">
+    <div class="hero-photo-overlay"></div>
+    <div class="hero-photo-badge">MA Adv &amp; Design<br>Leeds · 2023</div>
+  </div>
+  <div class="hero-stats">
+    <div class="hs"><p class="hs-n">Avg 2M+</p><p class="hs-l">Views per ad film campaign</p></div>
+    <div class="hs"><p class="hs-n">30K+</p><p class="hs-l">Students reached at Salford SU</p></div>
+    <div class="hs"><p class="hs-n">39%</p><p class="hs-l">Email open rate, up from 26% in one quarter</p></div>
+    <div class="hs"><p class="hs-n">6+</p><p class="hs-l">NGO and CSR films for global organisations</p></div>
+  </div>
+</section>
+
+<!-- SECTION STRIP -->
+<div class="section-strip">
+  <span class="ss-label" style="background:var(--pink);color:#fff;">✦ Clients</span>
+  <div class="ss-ticker">
+    <div class="ss-ticker-t">
+      <span class="ss-ti">Gamezy <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">ICICI Bank <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Gates Foundation <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Save the Children <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Salford SU <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Kushal's Jewellery <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Leam Music Academy <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">O2 Telefonica <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Park Inn by Radisson <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Netbrahma <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Gamezy <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">ICICI Bank <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Gates Foundation <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Save the Children <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Salford SU <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Kushal's Jewellery <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Leam Music Academy <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">O2 Telefonica <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Park Inn by Radisson <span class="ss-sep">✦</span></span>
+      <span class="ss-ti">Netbrahma <span class="ss-sep">✦</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- THREE ACTS -->
+<section class="acts-section">
+  <div class="acts-header r">
+    <span class="acts-header-label">Work —</span>
+    <h2 class="acts-header-title">Three Acts. One Career. Pick Your Entry Point.</h2>
+  </div>
+  <div class="acts-grid">
+
+    <a href="onscreen.html" class="act act-1 r">
+      <div class="act-illus">
+        <!-- Film reel / camera aperture SVG -->
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <circle cx="150" cy="150" r="140" stroke="#E8195A" stroke-width="2"/>
+          <circle cx="150" cy="150" r="100" stroke="#E8195A" stroke-width="1.5"/>
+          <circle cx="150" cy="150" r="60" stroke="#E8195A" stroke-width="1"/>
+          <circle cx="150" cy="150" r="20" fill="#E8195A" opacity=".5"/>
+          <line x1="150" y1="10" x2="150" y2="290" stroke="#E8195A" stroke-width=".8"/>
+          <line x1="10" y1="150" x2="290" y2="150" stroke="#E8195A" stroke-width=".8"/>
+          <line x1="51" y1="51" x2="249" y2="249" stroke="#E8195A" stroke-width=".6"/>
+          <line x1="249" y1="51" x2="51" y2="249" stroke="#E8195A" stroke-width=".6"/>
+          <rect x="20" y="130" width="260" height="40" rx="4" stroke="#E8195A" stroke-width=".8" stroke-dasharray="4 4"/>
+        </svg>
+      </div>
+      <span class="act-number">I</span>
+      <span class="act-tag">Ad Films · NGO · 2020-2023</span>
+      <h3 class="act-title">On Screen</h3>
+      <p class="act-desc">Television commercials that aired nationally. Purpose-driven films for the Gates Foundation, Save the Children, and ICICI Foundation. Scripts written for 30+ million viewers. Average 2M+ views per campaign.</p>
+      <span class="act-cta">Enter →</span>
+    </a>
+
+    <a href="onground.html" class="act act-2 r">
+      <div class="act-illus">
+        <!-- Data grid / strategy SVG -->
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <line x1="30" y1="270" x2="270" y2="270" stroke="#00B84C" stroke-width="2"/>
+          <line x1="30" y1="270" x2="30" y2="30" stroke="#00B84C" stroke-width="2"/>
+          <polyline points="30,240 80,180 130,150 180,100 230,60 270,40" stroke="#00B84C" stroke-width="2.5"/>
+          <circle cx="30" cy="240" r="5" fill="#00B84C"/>
+          <circle cx="80" cy="180" r="5" fill="#00B84C"/>
+          <circle cx="130" cy="150" r="5" fill="#00B84C"/>
+          <circle cx="180" cy="100" r="5" fill="#00B84C"/>
+          <circle cx="230" cy="60" r="5" fill="#00B84C"/>
+          <circle cx="270" cy="40" r="5" fill="#00B84C"/>
+          <line x1="30" y1="240" x2="270" y2="240" stroke="#00B84C" stroke-width=".5" stroke-dasharray="4 4" opacity=".4"/>
+          <line x1="30" y1="150" x2="270" y2="150" stroke="#00B84C" stroke-width=".5" stroke-dasharray="4 4" opacity=".4"/>
+          <line x1="30" y1="60" x2="270" y2="60" stroke="#00B84C" stroke-width=".5" stroke-dasharray="4 4" opacity=".4"/>
+        </svg>
+      </div>
+      <span class="act-number">II</span>
+      <span class="act-tag">Strategy · Projects · 2022-Now</span>
+      <h3 class="act-title">On the Ground</h3>
+      <p class="act-desc">Email open rates from 26% to 39% in one quarter. A 30% engagement uplift on an EMEA website redevelopment. Campus-wide digital programmes built from zero. The unglamorous work that shows up in data.</p>
+      <span class="act-cta">Enter →</span>
+    </a>
+
+    <a href="onpage.html" class="act act-3 r">
+      <div class="act-illus">
+        <!-- Ruled paper / writing SVG -->
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <rect x="40" y="30" width="220" height="240" rx="4" stroke="#F0DC00" stroke-width="1.5"/>
+          <line x1="40" y1="80" x2="260" y2="80" stroke="#F0DC00" stroke-width="1"/>
+          <line x1="60" y1="110" x2="240" y2="110" stroke="#F0DC00" stroke-width=".8" opacity=".6"/>
+          <line x1="60" y1="135" x2="240" y2="135" stroke="#F0DC00" stroke-width=".8" opacity=".6"/>
+          <line x1="60" y1="160" x2="200" y2="160" stroke="#F0DC00" stroke-width=".8" opacity=".6"/>
+          <line x1="60" y1="185" x2="220" y2="185" stroke="#F0DC00" stroke-width=".8" opacity=".6"/>
+          <line x1="60" y1="210" x2="180" y2="210" stroke="#F0DC00" stroke-width=".8" opacity=".4"/>
+          <circle cx="72" cy="57" r="10" fill="#F0DC00" opacity=".6"/>
+          <text x="72" y="62" text-anchor="middle" font-family="Space Mono" font-size="10" fill="#0C0800" opacity=".8">✍</text>
+        </svg>
+      </div>
+      <span class="act-number">III</span>
+      <span class="act-tag">Writing · Web Copy · Social · 2019-Now</span>
+      <h3 class="act-title">On the Page</h3>
+      <p class="act-desc">Four years of SEO writing, blog content, and web copy across industries. Social media copywriting for 30+ brands. A recipe blog that has run every week for three years. Writing as a daily practice, not just a job.</p>
+      <span class="act-cta">Enter →</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- CURRENTLY -->
+<section id="currently" class="currently">
+  <div class="cur-lhs r">
+    <div class="cur-lhs-bg">
+      <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <circle cx="150" cy="200" r="180" stroke="#00B84C" stroke-width=".8"/>
+        <circle cx="150" cy="200" r="140" stroke="#F0DC00" stroke-width=".5"/>
+        <circle cx="150" cy="200" r="100" stroke="#00B84C" stroke-width=".5"/>
+        <circle cx="150" cy="200" r="60" stroke="#F0DC00" stroke-width=".4"/>
+        <line x1="150" y1="20" x2="150" y2="380" stroke="#00B84C" stroke-width=".4"/>
+        <line x1="-30" y1="200" x2="330" y2="200" stroke="#00B84C" stroke-width=".4"/>
+      </svg>
+    </div>
+    <div class="cur-lhs-content">
+      <span class="cur-section-label">Currently — 2024 to Now</span>
+      <h2 class="cur-org">Salford<br>Students'<br>Union</h2>
+      <p class="cur-role">Marketing Coordinator</p>
+      <p class="cur-blurb">Marketing communications for 30,000+ students across a full multi-channel programme. Every day is campaigns, content, events, data, and the occasional fire to put out.</p>
+      <div class="cur-stats">
+        <div class="cst"><p class="cst-n">39%</p><p class="cst-l">Email open rate</p></div>
+        <div class="cst"><p class="cst-n">30K+</p><p class="cst-l">Students reached</p></div>
+        <div class="cst"><p class="cst-n">5</p><p class="cst-l">Direct reports</p></div>
+        <div class="cst"><p class="cst-n">0</p><p class="cst-l">Outsourced events</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="cur-rhs r">
+    <h3 class="cur-rhs-title">What I Actually Do Here</h3>
+    <ul class="ach-list">
+      <li class="ach">
+        <span class="ach-ico">📧</span>
+        <div>
+          <h4 class="ach-title">Email Strategy Overhaul</h4>
+          <p class="ach-body">Inherited a flat, unsegmented email programme with a 26% open rate. Rebuilt it from scratch through MSL, introducing proper audience segmentation by student type, subject line testing, send-time optimisation, and content tailored to each group. Open rates hit 39% within one quarter and stayed there.</p>
+          <span class="ach-m">26% to 39% open rate in one quarter</span>
+        </div>
+      </li>
+      <li class="ach">
+        <span class="ach-ico">🎪</span>
+        <div>
+          <h4 class="ach-title">End-to-End Event Delivery</h4>
+          <p class="ach-body">Full event lifecycle ownership from concept to post-event review. Vendor negotiation, logistics, risk assessment, and budget management all under one person. Delivered the full Salford SU Awards 2026 marketing campaign on top of an already full existing schedule. Nothing outsourced.</p>
+          <span class="ach-m">Full programme ownership · Zero outsourcing</span>
+        </div>
+      </li>
+      <li class="ach">
+        <span class="ach-ico">👥</span>
+        <div>
+          <h4 class="ach-title">Content Team Management</h4>
+          <p class="ach-body">Manage a team of 5 student content creators across Instagram, TikTok, and wider digital channels. Brief each creator individually, review all outputs before publication, and maintain editorial quality across a high-volume output schedule while running the marketing working board.</p>
+          <span class="ach-m">5 direct reports · Multi-platform</span>
+        </div>
+      </li>
+      <li class="ach">
+        <span class="ach-ico">🖥️</span>
+        <div>
+          <h4 class="ach-title">Digital Screens Programme</h4>
+          <p class="ach-body">Built from absolute zero. Designed evergreen content assets in Adobe Illustrator, deployed across campus through Xibo. Created the content calendar and production workflow from scratch. The first time the SU had a consistent physical brand presence across high-footfall areas.</p>
+          <span class="ach-m">Campus-wide · Built from zero</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- UNIVERSITY -->
+<section class="uni-section">
+  <div class="uni-header r">
+    <h2>University Work</h2>
+    <span class="uni-header-sub">MA Advertising and Design · University of Leeds · 2023</span>
+  </div>
+  <div class="uni-grid r">
+    <a href="university.html#subko" class="uni-c">
+      <div class="uni-c-accent"></div>
+      <span class="uni-tag">MA Dissertation · Creative Direction · 2023</span>
+      <h3 class="uni-h">Subko — Beyond the Brew</h3>
+      <p class="uni-p">Full creative direction strategy for launching a Mumbai specialty coffee brand into the UK university market. PESTEL, competitor mapping, consumer journey maps, brand semiotics, and a complete brand extension including packaging, social media, and campus launch executions.</p>
+      <div class="uni-btns">
+        <span class="ub f">View Case Study</span>
+        <a href="SubkoFinal2.pdf" target="_blank" rel="noopener" class="ub" onclick="event.stopPropagation()">Download PDF</a>
+      </div>
+    </a>
+    <a href="university.html#o2" class="uni-c">
+      <div class="uni-c-accent"></div>
+      <span class="uni-tag">MA Module · Campaign Strategy · 2023</span>
+      <h3 class="uni-h">O2 Telefonica — Weather Hijack</h3>
+      <p class="uni-p">Brand strategy for reaching 16 to 30 year olds who ignore telecoms advertising. Solution: weather-reactive digital billboards serving contextual copy in real time. "Together, Everywhere." All research, strategy, concept, and copy by me.</p>
+      <div class="uni-btns">
+        <span class="ub f">View Case Study</span>
+        <a href="TELECOMMUNICATION_PORTFOLIO.pdf" target="_blank" rel="noopener" class="ub" onclick="event.stopPropagation()">Download PDF</a>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="about-header r">
+    <span class="about-label">Profile —</span>
+    <h2>About Durva</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-lhs r">
+      <span class="aq">"Writing has always been my first love."</span>
+      <p class="ap">I started with an English Literature degree in India, writing ad scripts and copy for agencies on the side. When I realised I was as much a strategist and visualiser as a writer, I did something about it: <strong>MA Advertising and Design at the University of Leeds.</strong></p>
+      <p class="ap">Since then I have scripted television commercials for national banks and global NGOs, led website projects across EMEA, built email programmes that moved measurable numbers, and managed marketing for one of the UK's largest student communities.</p>
+      <p class="ap">I work at the intersection of creative and strategic. Comfortable writing an ad script one day and presenting a data-backed content audit the next. That range is not a lack of focus. It is the point.</p>
+      <p class="ap">Currently based in Manchester. Open to mid to senior marketing, content strategy, and project leadership roles across the UK.</p>
+    </div>
+    <div class="about-rhs r">
+      <div class="about-stats">
+        <div class="as"><span class="as-n">4+</span><p class="as-l">Years in marketing</p></div>
+        <div class="as"><span class="as-n">Avg 2M+</span><p class="as-l">Views per campaign</p></div>
+        <div class="as"><span class="as-n">30K+</span><p class="as-l">Students reached</p></div>
+        <div class="as"><span class="as-n">MA</span><p class="as-l">Adv and Design, Leeds 2023</p></div>
+      </div>
+      <div class="skw" id="skw">
+        <div class="skr"><span class="skn">Campaign Strategy</span><div class="skb"><div class="skf" style="--w:92%"></div></div></div>
+        <div class="skr"><span class="skn">Copywriting and Scriptwriting</span><div class="skb"><div class="skf" style="--w:95%"></div></div></div>
+        <div class="skr"><span class="skn">Email Marketing and CRM</span><div class="skb"><div class="skf" style="--w:85%"></div></div></div>
+        <div class="skr"><span class="skn">Project Leadership</span><div class="skb"><div class="skf" style="--w:88%"></div></div></div>
+        <div class="skr"><span class="skn">Social Media Strategy</span><div class="skb"><div class="skf" style="--w:90%"></div></div></div>
+        <div class="skr"><span class="skn">UX Writing and Web Content</span><div class="skb"><div class="skf" style="--w:80%"></div></div></div>
+      </div>
+      <div class="out-row" style="margin-top:24px;">
+        <div class="ot"><div class="oe">🍳</div><h4 class="on2">Bite Bandits</h4><p class="ob">Daily recipe blog running for years.</p><a href="https://bitebandits.blogspot.com" target="_blank" rel="noopener" class="ol">Visit</a></div>
+        <div class="ot"><div class="oe">✈️</div><h4 class="on2">Travel</h4><p class="ob">Perpetually planning the next trip.</p></div>
+        <div class="ot"><div class="oe">✍️</div><h4 class="on2">Poetry</h4><p class="ob">For myself. Journals that never get shared.</p></div>
+        <div class="ot"><div class="oe">🗂️</div><h4 class="on2">Systems</h4><p class="ob">Colour-coded calendars. Everything has a place.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner r">
+    <span class="contact-pre">Open for work · Manchester, UK</span>
+    <h2 class="contact-hd">Got a<br>brief? <span>Let's<br>talk.</span></h2>
+    <a href="mailto:durvadalaluk@gmail.com" class="contact-email">durvadalaluk@gmail.com</a>
+    <div class="contact-btns">
+      <a href="https://calendly.com/durvadalaluk/calls" target="_blank" rel="noopener" class="btn btn-p">Book a Call</a>
+      <a href="https://www.linkedin.com/in/durva-d-2850591bb/" target="_blank" rel="noopener" class="btn btn-ink">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="ft">© 2026 Durva Dalal · Manchester, UK</span>
+  <span class="ft">Marketing · Strategy · Storytelling</span>
+</footer>
+
+<script>
+const cur=document.getElementById('cur');
+if(cur&&window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+  document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+  document.addEventListener('mousedown',()=>cur.classList.add('p'));
+  document.addEventListener('mouseup',()=>cur.classList.remove('p'));
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('e'));el.addEventListener('mouseleave',()=>cur.classList.remove('e'));});
+}
+const menuBtn=document.getElementById('menuBtn'),fmenu=document.getElementById('fmenu');
+function openMenu(){fmenu.classList.add('on');fmenu.setAttribute('aria-hidden','false');menuBtn.setAttribute('aria-expanded','true');const s=menuBtn.querySelectorAll('span');s[0].style.transform='rotate(45deg) translate(5px,5px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(5px,-5px)';}
+function closeMenu(){fmenu.classList.remove('on');fmenu.setAttribute('aria-hidden','true');menuBtn.setAttribute('aria-expanded','false');const s=menuBtn.querySelectorAll('span');s[0].style.transform='';s[1].style.opacity='1';s[2].style.transform='';}
+menuBtn.addEventListener('click',e=>{e.stopPropagation();fmenu.classList.contains('on')?closeMenu():openMenu();});
+document.addEventListener('click',e=>{if(fmenu.classList.contains('on')&&!fmenu.contains(e.target)&&e.target!==menuBtn)closeMenu();});
+fmenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v');}),{threshold:.08});
+document.querySelectorAll('.r').forEach(el=>ro.observe(el));
+const so=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)document.getElementById('skw').classList.add('go');}),{threshold:.5});
+const sw=document.getElementById('skw');if(sw)so.observe(sw);
+</script>
+</body>
+</html>
